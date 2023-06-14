@@ -120,6 +120,9 @@ rec {
     written-summaries = { role }: ''
       **${role}** will weekly provide a brief written overview of work done, for the purpose of **NixOS Foundation** reporting to financiers and the general public.
     '';
+    reporting-assistance = { role }: ''
+      **${role}** will collaborate on regularly providing brief written overviews of work done on the project for the purpose of the **NixOS Foundation** reporting to financiers and the general public.
+    '';
     license = { role }: ''
       **${role}** will submit the results of their work to the public benefit under a free and open source software license.
     '';
@@ -133,6 +136,9 @@ rec {
     '' else ""}'';
     hours-and-rate = { role, hours, rate }: ''
       **${role}** will work a total of ${toString hours} hours for **NixOS Foundation**, for an hourly rate of ${toString rate} EUR.
+    '';
+    max-hours-and-rate = { role, hours, rate }: ''
+      **${role}** will work a maximum of ${toString hours} hours for **NixOS Foundation**, for an hourly rate of ${toString rate} EUR.
     '';
     total-amount = { role, amount }: ''
       **${role}** will receive a total of ${toString amount} EUR as compensation.
@@ -151,8 +157,8 @@ rec {
     payment-duties = { role }: ''
       The **NixOS Foundation** will transfer payment within 30 calendar days after receiving an invoice.
     '';
-    availability = { role }: ''
-      If **${role}** is unable to keep to the agreed-upon schedule, or become temporarily or permantly unavailable for the purposes of this agreement, they will notify the **Project Organiser** immediately.
+    availabilty-notify = responsible: { role }: ''
+      If **${role}** is unable to keep to the agreed-upon schedule, or become temporarily or permantly unavailable for the purposes of this agreement, they will notify the **${responsible}** immediately.
 
       In such a situation, **NixOS Foundation** has the right to suspend or terminate the contract.
       **NixOS Foundation** will inform **${role}** one week (seven days) in advance of its intent to suspend or terminate the contract.
@@ -201,9 +207,6 @@ rec {
         **${role}** will support the **Editorial Lead** by fulfilling assigned research, writing, or software development tasks as needed.
         **${role}** will commit 5 hours of effort per week within the project's time frame, on their own schedule.
       '';
-      reporting-assistance = { role }: ''
-        **${role}** will collaborate on regularly providing brief written overviews of work done on the project for the purpose of the **NixOS Foundation** reporting to financiers and the general public.
-      '';
       time-frame = { role }: terms.time-frame {
         time-frame = "the Nix Documentation Project from 2023-06-01 to 2023-08-31";
         inherit role;
@@ -238,7 +241,7 @@ rec {
             no-claims
             terms.invoicing
             payment-duties
-            availability
+            (availabilty-notify "Project Organiser")
           ];
         in contract {
           contractor = { inherit name address role; };
@@ -262,7 +265,7 @@ rec {
             no-claims
             terms.invoicing
             payment-duties
-            availability
+            (availabilty-notify "Project Organiser")
           ];
         in contract {
           contractor = { inherit name address role; };
@@ -283,7 +286,7 @@ rec {
             no-claims
             terms.bulk-invoicing
             payment-duties
-            availability
+            (availabilty-notify "Project Organiser")
           ];
         in contract {
           contractor = { inherit name address role; };
@@ -304,7 +307,7 @@ rec {
             no-claims
             terms.bulk-invoicing
             payment-duties
-            availability
+            (availabilty-notify "Project Organiser")
           ];
         in contract {
           contractor = { inherit name address role; };
@@ -313,6 +316,58 @@ rec {
         };
       };
     };
+
+  ngi = {
+    terms = {
+      time-frame = { role }: terms.time-frame {
+        time-frame = "from 2023-06-01 to 2023-12-31";
+        inherit role;
+      };
+      duties = { role }: ''
+        The mission for **${role}** is to help fulfil the NixOS Foundation’s NGI program duties, by reducing administrative friction and increasing visibility of work done.
+
+        Tasks on behalf of NixOS Foundation include:
+
+        - Determine priorities and allocate budgets
+        - Develop projects in collaboration with individual developers and teams from the Nix community
+        - Prepare contracts
+        - Keep track of progress and compile reports
+        - Help with fundraising
+        - Assist with various administrative tasks
+
+        A particular focus will be on **Summer of Nix**, which constitutes a major part of the packaging work planned for the upcoming year.
+      '';
+    };
+
+    project-manager = { name, address, hours, rate }:
+      let
+        role = "NGI Project Manager";
+        compensation = { role }: terms.max-hours-and-rate { inherit role hours rate; };
+        role-terms = with terms; with ngi.terms; map (t: t { inherit role; }) [
+          duties
+          written-summaries
+          time-frame
+          compensation
+          no-claims
+          terms.invoicing
+          payment-duties
+          (availabilty-notify "NixOS Foundation")
+          license
+          code-of-conduct
+          public-statements
+          summer-of-nix.terms.acknowledgement
+        ];
+      in contract {
+        contractor = { inherit name address role; };
+        definitions = with definitions; [
+          nix
+          nixos-foundation
+          summer-of-nix.definitions.ngi0
+          summer-of-nix.definitions.summer-of-nix
+        ];
+        terms = role-terms;
+      };
+  };
 
   # definitions and contract terms specific to Summer of Nix
   summer-of-nix = {
@@ -400,7 +455,7 @@ rec {
             no-claims
             terms.bulk-invoicing
             payment-duties
-            availability
+            (availabilty-notify "Project Organiser")
           ];
         in contract {
           contractor = { inherit name address role; };
@@ -427,7 +482,7 @@ rec {
             no-claims
             terms.bulk-invoicing
             payment-duties
-            availability
+            (availabilty-notify "Project Organiser")
           ];
         in contract {
           contractor = { inherit name address role; };
@@ -467,7 +522,7 @@ rec {
             no-claims
             terms.invoicing
             payment-duties
-            availability
+            (availabilty-notify "Project Organiser")
           ];
         in contract {
           contractor = { inherit name address role; };
@@ -489,7 +544,7 @@ rec {
             no-claims
             terms.bulk-invoicing
             payment-duties
-            availability
+            (availabilty-notify "NixOS Foundation")
           ];
         in contract {
           contractor = { inherit name address role; };
