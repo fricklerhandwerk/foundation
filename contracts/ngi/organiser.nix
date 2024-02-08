@@ -8,11 +8,10 @@ let
   role = "Project Organiser";
   duties = { role }: ''
     **${role}** is responsible for executing the organisational aspects of the **Summer of Nix** 2024 program, including in particular:
-    - Issue a public call for applications
-    - Process applications and select **Facilitators**
-    - Instruct **Facilitators** and **Participants** on mob pramming
+    - Recruitment of **Facilitators**, including public outreach, filtering, interviews, and selection.
+    - Support participants with mob programming.
     - Help connect corporate sponsors and program graduates
-    - Assistist the **NGI project manager** with administrative tasks
+    - Assist the **NGI project manager** with administrative tasks
   '';
   priorities = { role }: contracts.terms.priorities {
     inherit role;
