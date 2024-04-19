@@ -47,7 +47,7 @@ rec
       For example: on websites, in promotional materials or presentations, and in source code.
     '';
   };
-  summer-of-nix-definitions =
+  ngi-definitions =
     let
       generic = contracts.definitions;
     in
