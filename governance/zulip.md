@@ -12,7 +12,7 @@
   - If you do not qualify for the above, but still believe you could contribute, reach out to the Zulip moderators in private on Discourse
 
 - To post a message:
-  - If your contribution was on GitHub, post it to {dedicated foundation Github issue}
+  - If your contribution was on GitHub, post it to the [dedicated Github issue](https://github.com/NixOS/foundation/issues/143)
   - If it was not on Github, post it to {Discourse thread}
   - The message might look like:
     Contribution: [some-link]
