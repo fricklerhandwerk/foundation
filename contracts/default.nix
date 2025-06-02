@@ -7,11 +7,34 @@
 let
   inherit (import ./utils.nix) ul ol splitLines;
   inherit (builtins) map concatStringsSep;
-  pkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/tarball/nixos-23.11) { };
+  pkgs = import (fetchTarball https://github.com/NixOS/nixpkgs/tarball/nixos-25.05) { };
 in
 rec {
-  toPDF = foundation: number: parameters:
-    pdf "${number}.pdf" (parameters { inherit number foundation; });
+  result =
+  let
+    inherit (pkgs.lib) evalModules mkOption types;
+  in
+  evalModules {
+    modules = [{
+      options = {
+        schema = mkOption {
+          description = ''
+            Schema version of this data type.
+            We'll change the shape of contracts as we go, and we don't need to reproduce old contracts from source.
+            But in case we still need to for some reason, we should at least know whether it's possible.
+          '';
+          type = types.ints.positive;
+          readOnly = true;
+          default = 5;
+        };
+        toPDF = mkOption {
+          type = with types; functionTo (functionTo (functionTo package));
+          default = foundation: number: parameters:
+            pdf "${number}.pdf" (parameters { inherit number foundation; });
+        };
+      };
+    }];
+  };
   pdf = name: contract: pkgs.runCommand name
     {
       buildInputs = with pkgs; [ pandoc texlive.combined.scheme-small ];
