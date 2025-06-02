@@ -19,7 +19,7 @@ rec
       A **Participant** takes part in the **Summer of Nix** program, and will perform software packaging and related activities for **NGI0** and the Next Generation Internet initiative.
     '';
     facilitator = ''
-      A **Facilitator** mentors and guides **Participants** during **Summer of Nix**, helping them achieve their goals and develop their skills through collaborative work and feedback.
+      A **Mentor** guides and supports **Participants** during **Summer of Nix**, helping them to achieve their goals.
     '';
     project-manager = ''
       The **NGI Project Manager** is a representative of **NixOS Foundation** authorised to set goals and priorities for contractors within the scope of their engagement.
@@ -30,7 +30,7 @@ rec
       The purpose of this engagement is to further the technical goals of the **NGI0** consortium according to the responsibilities of **NixOS Foundation**.
     '';
     technical-means = { role }: ''
-      **${role}** is responsible to ensure that the technical means required for their effective participation in programming sessions are available and operational.
+      **${role}** is responsible to ensure that the technical means required for their effective participation the program are available and operational.
     '';
     time-sheets = { role }: ''
       **${role}** will submit monthly time sheets to the **NixOS Foundation**, detailing the effort by the hour.

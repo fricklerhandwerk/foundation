@@ -7,7 +7,7 @@ in
 let
   role = "Participant";
   duties = { role }: ''
-    **${role}** will participate in ${toString hours} hours of sessions led by a **Facilitator** according to an agreed-upon schedule, and work on improving the deployment story of software projects, writing Nix derivations, NixOS modules, integration tests, and documentation, in line with the program's goals and priorities.
+    **${role}** will contribute ${toString hours} hours to the Summer of Nix program, coordinate their activities with their **Mentor** according to an agreed-upon schedule, and work on improving the deployment story of select software projects by writing Nix derivations, NixOS modules, integration tests, and documentation, in line with the program's goals and priorities.
 
     **${role}** will collaborate on regularly providing brief written overviews of their work results for the purpose of the **NixOS Foundation** reporting to financiers and the general public.
   '';
