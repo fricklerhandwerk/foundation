@@ -3,13 +3,13 @@ let
   inherit (ngi) contracts;
 in
 
-{ name, address, amount, hours ? 160, time-frame ? "from 2024-06-01 to 2024-10-31" }:
+{ name, address, amount, hours ? 160, time-frame ? "from 2025-06-09 to 2025-09-05" }:
 let
   role = "Participant";
   duties = { role }: ''
-    **${role}** will participate in ${toString hours} hours of mob sessions led by a **Facilitator** according to an agreed-upon schedule, and work according to the mob's goals and priorities.
+    **${role}** will participate in ${toString hours} hours of sessions led by a **Facilitator** according to an agreed-upon schedule, and work on improving the deployment story of software projects, writing Nix derivations, NixOS modules, integration tests, and documentation, in line with the program's goals and priorities.
 
-    **${role}** will collaborate on regularly providing brief written overviews of their mob's work results for the purpose of the **NixOS Foundation** reporting to financiers and the general public.
+    **${role}** will collaborate on regularly providing brief written overviews of their work results for the purpose of the **NixOS Foundation** reporting to financiers and the general public.
   '';
   priorities = { role }: contracts.terms.priorities { inherit role; supervisor = "NGI Project Manager"; };
   availability = { role }: contracts.terms.availability {
